@@ -10,10 +10,12 @@ public class BlueVirus : Virus
 {
     [SerializeField] private GameObject barrel;
     [SerializeField] private float maxAngle = 60.0f;
-    [SerializeField] private float barrelSpeed = 0.5f;
+    [SerializeField] private float barrelSpeed = 25.0f;
 
     private float currentAngle;
     private GameObject player;
+    private Quaternion lookRotation;
+    private Vector3 direction;
 
     // Start is called before the first frame update
     void Start()
@@ -31,11 +33,19 @@ public class BlueVirus : Virus
         while (true)
         {
             //calculate angle in straight line to player
-            float destAngle = Vector2.Angle(transform.position, player.transform.position);
-
-            float angle = destAngle * barrelSpeed * Time.fixedDeltaTime;
+            Vector2 playerDir = player.transform.position - transform.position;
+            float destAngle = Vector2.Angle(barrel.transform.right, playerDir);
+            float dotproduct =Vector2.Dot(barrel.transform.right, playerDir.normalized);
+            //float destAngle = angle1 - angle2; /*= Vector2.Angle(transform.position);*/
+            //print("barrel: " + transform.position.normalized);
+            //print("player: " + player.transform.position.normalized);
+            print(playerDir.normalized);
+            float angle = barrelSpeed * Time.fixedDeltaTime;
 
             RaycastHit2D hit = Physics2D.Raycast(barrel.transform.position, -barrel.transform.right, 100, LayerMask.GetMask("Player"));
+            Debug.DrawRay(barrel.transform.position, -barrel.transform.right*100, Color.black);
+            Debug.DrawRay(barrel.transform.position, playerDir * 100, Color.yellow);
+
 
             if (hit)
             {
@@ -46,7 +56,21 @@ public class BlueVirus : Virus
             }
             else //TODO check if the angle is in desired range
             {
-                barrel.transform.Rotate(Vector3.forward, angle);
+                barrel.transform.right = playerDir;
+                ////find the vector pointing from our position to the target
+                //direction = (player.transform.position - transform.position).normalized;
+
+                
+                ////create the rotation we need to be in to look at the target
+                //lookRotation = Quaternion.LookRotation(direction);
+
+                //barrel.transform.eulerAngles = new Vector3(0, 0, transform.eulerAngles.z);
+                ////rotate us over time according to speed until we are in the required rotation
+                //barrel.transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.fixedDeltaTime * barrelSpeed);
+
+                //barrel.transform.Rotate(Vector3.forward, angle);
+
+
             }
 
 

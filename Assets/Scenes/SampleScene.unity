@@ -136,7 +136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1300642061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,6 +424,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3998354306497884766, guid: 63c9bc86a69e66d4c9c20567c6f47f6d,
+        type: 3}
+      propertyPath: barrelSpeed
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63c9bc86a69e66d4c9c20567c6f47f6d, type: 3}
